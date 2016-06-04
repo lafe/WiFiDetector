@@ -21,15 +21,21 @@
 #define LED D4
 #define SECOND 1000
 
+const int deviceId = 1;
+
+//Target Rest URL
+const char* restHost = "192.168.1.191";
+const int restPort = 36604;
+const String restUrl = "/api/measurements";
+
 Ticker ledBlinking;
-Ticker wlanDetection;
 bool ledOn = false;
 
 // the setup function runs once when you press reset or power the board
 void setup() {
 	Serial.begin(115200);
 	pinMode(LED, OUTPUT);
-	
+
 	//Connect to Wifi
 	startBlinking(0.05);
 	Serial.print("Connecting to ");
@@ -70,7 +76,65 @@ void checkWlan() {
 	Serial.print(numberOfNetworks);
 	Serial.println(" networks");
 
+	Serial.print("Connection to ");
+	Serial.print(restHost);
+	WiFiClient client;
+	if (!client.connect(restHost, restPort)) {
+		Serial.println(" failed!");
+		return;
+	}
+	Serial.println(" succeeded!");
+
+	//Command
+	client.print("POST http://");
+	client.print(restHost);
+	client.print(":");
+	client.print(restPort);
+	client.print(restUrl);
+	client.print(" HTTP/1.1");
+	client.println();
+
+	//Header
+	client.println("Connection: close");
+	client.println("Content-Type: application/json");
+	client.println("User-Agent: ESP8266");
+	client.println("Accept: */*");
+
+	client.println("[");
+
 	for (int i = 0; i < numberOfNetworks; i++) {
+
+		client.println("{");
+		client.print("\"DeviceId\":");
+		client.print(deviceId);
+		client.println(",");
+		client.print("\"SSID\":");
+		client.print(WiFi.SSID(i));
+		client.println(",");
+		client.print("\"BSSID\":");
+		client.print(WiFi.BSSIDstr(i));
+		client.println(",");
+		client.print("\"SignalStrength\":");
+		client.print(WiFi.RSSI(i));
+		client.println(",");
+		client.print("\"Encryption\":");
+		client.print(WiFi.encryptionType(i));
+		client.println(",");
+		client.print("\"Channel\":");
+		client.print(WiFi.channel(i));
+		client.println(",");
+		client.print("\"Hidden\":");
+		client.print(WiFi.isHidden(i));
+		client.println(",");
+
+		if (i < numberOfNetworks - 1) {
+			client.println("},");
+		}
+		else {
+			client.println("}");
+		}
+
+/*
 		Serial.print(i);
 		Serial.print(") ");
 		Serial.print(WiFi.SSID(i));
@@ -85,11 +149,13 @@ void checkWlan() {
 		Serial.print(WiFi.channel(i));
 		Serial.print(", Hidden: ");
 		Serial.print(WiFi.isHidden(i));
-		
-		Serial.println();
+
+		Serial.println();*/
 	}
 	Serial.println();
-	
+
+	client.println("]");
+
 	endBlinking();
 }
 
