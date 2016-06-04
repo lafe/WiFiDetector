@@ -81,26 +81,60 @@ void checkWlan() {
 	WiFiClient client;
 	if (!client.connect(restHost, restPort)) {
 		Serial.println(" failed!");
+		endBlinking();
 		return;
 	}
 	Serial.println(" succeeded!");
 
+	String header = String("POST http://" + String(restHost) + ":" + restPort + restUrl + " HTTP/1.1\r\n");
+	header = String(header + "Host: " + WiFi.localIP() + "\r\n");
+	header = String(header + "Connection: close\r\n");
+	header = String(header + "Content-Type: application/json\r\n");
+	header = String(header + "User-Agent: ESP8266\r\n");
+	header = String(header + "Accept: */*\r\n");
+
+	String payload = "[\r\n";
+
+	for (int i = 0; i < numberOfNetworks; i++) {
+		payload = String(payload + "{");
+		payload = String(payload + "\"DeviceId\":" + deviceId + ",");
+		payload = String(payload + "\"SSID\":\"" + WiFi.SSID(i) + "\",");
+		payload = String(payload + "\"BSSID\":\"" + WiFi.BSSIDstr(i) + "\",");
+		payload = String(payload + "\"SignalStrength\":" + WiFi.RSSI(i) + ",");
+		payload = String(payload + "\"Channel\":" + WiFi.channel(i) + ",");
+		payload = String(payload + "\"Encryption\":" + WiFi.encryptionType(i) + ",");
+		payload = String(payload + "\"Hidden\":" + WiFi.isHidden(i));
+
+		if (i < numberOfNetworks - 1) {
+			payload = String(payload + "},\r\n");
+		}
+		else {
+			payload = String(payload + "}\r\n");
+		}
+	}
+
+	payload = String(payload + "]");
+
+	header = String(header + "Content-Length: " + payload.length() + "\r\n");
+
+	String data = String(header + "\r\n" + payload + "\r\n");
+
 	//Command
-	client.print("POST http://");
-	client.print(restHost);
-	client.print(":");
-	client.print(restPort);
-	client.print(restUrl);
-	client.print(" HTTP/1.1");
-	client.println();
+	//client.print("POST http://");
+	//client.print(restHost);
+	//client.print(":");
+	//client.print(restPort);
+	//client.print(restUrl);
+	//client.print(" HTTP/1.1");
+	//client.println();
 
 	//Header
-	client.println("Connection: close");
-	client.println("Content-Type: application/json");
-	client.println("User-Agent: ESP8266");
-	client.println("Accept: */*");
+	//client.println("Connection: close");
+	//client.println("Content-Type: application/json");
+	//client.println("User-Agent: ESP8266");
+	//client.println("Accept: */*");
 
-	client.println("[");
+	/*client.println("[");
 
 	for (int i = 0; i < numberOfNetworks; i++) {
 
@@ -132,29 +166,31 @@ void checkWlan() {
 		}
 		else {
 			client.println("}");
-		}
+		}*/
 
-/*
-		Serial.print(i);
-		Serial.print(") ");
-		Serial.print(WiFi.SSID(i));
-		Serial.print(", BSSID: ");
-		Serial.print(WiFi.BSSIDstr(i));
-		Serial.print(", Signal: ");
-		Serial.print(WiFi.RSSI(i));
-		Serial.print(" dBm");
-		Serial.print(", Encryption: ");
-		printEncryptionType(WiFi.encryptionType(i));
-		Serial.print(", Channel: ");
-		Serial.print(WiFi.channel(i));
-		Serial.print(", Hidden: ");
-		Serial.print(WiFi.isHidden(i));
+		/*
+				Serial.print(i);
+				Serial.print(") ");
+				Serial.print(WiFi.SSID(i));
+				Serial.print(", BSSID: ");
+				Serial.print(WiFi.BSSIDstr(i));
+				Serial.print(", Signal: ");
+				Serial.print(WiFi.RSSI(i));
+				Serial.print(" dBm");
+				Serial.print(", Encryption: ");
+				printEncryptionType(WiFi.encryptionType(i));
+				Serial.print(", Channel: ");
+				Serial.print(WiFi.channel(i));
+				Serial.print(", Hidden: ");
+				Serial.print(WiFi.isHidden(i));
 
-		Serial.println();*/
-	}
+				Serial.println();
+			}*/
+	Serial.println("Data:");
+	Serial.println(data);
 	Serial.println();
 
-	client.println("]");
+	client.println(data);
 
 	endBlinking();
 }

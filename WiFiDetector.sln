@@ -10,7 +10,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		global.json = global.json
 	EndProjectSection
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "WiFiDetector", "src\WiFiDetector\WiFiDetector.xproj", "{1546E82B-9D45-44B8-A301-FA05BC04A1B0}"
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "WiFiDetectorWebPortal", "src\WiFiDetectorWebPortal\WiFiDetectorWebPortal.xproj", "{1546E82B-9D45-44B8-A301-FA05BC04A1B0}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "WiFiDetector", "Arduino\WiFiDetector\WiFiDetector.vcxproj", "{C5F80730-F44F-4478-BDAE-6634EFC2CA88}"
 EndProject

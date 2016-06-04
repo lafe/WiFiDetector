@@ -8,6 +8,27 @@
     <VCCodeModel>
       <VCCodeMacros />
     </VCCodeModel>
-    <BreakPoints />
+    <BreakPoints>
+      <BreakPoint Index="1" Name="MeasurementsController.cs, line 57 character 17" Id="0994efcb-1871-46c8-8054-08c9e195af17" Enabled="1" Message="" MessageTextType="2" PreProcessedMessage="" Condition="" ConditionType="1" CurrentHits="0" File="c:\code\wifidetector\src\wifidetectorwebportal\controllers\measurementscontroller.cs" FileLine="57" FileColumn="17" FunctionName="lafe.WiFiDetector.Controllers.MeasurementsController.Post([FromBody]IEnumerable&lt;MeasurementDto&gt; measurements)" FunctionLineOffset="6" FunctionColumnOffset="1" HitCountTarget="1" HitCountType="1" Language="C#" LocationType="3" Tag="&lt;vmbp Id='0994efcb-1871-46c8-8054-08c9e195af17'/&gt;" Type="1" ToString="System.__ComObject" BreakWhenHit="1">
+        <Source>50	
+51	        // POST api/values
+52	        [HttpPost]
+53	        public async Task&lt;IActionResult&gt; Post([FromBody]IEnumerable&lt;MeasurementDto&gt; measurements)
+54	        {
+55	            try
+56	            {
+--&gt;57	                var measurementTable = MeasurementContext.Measurements;
+58	
+59	                var timestamp = DateTime.UtcNow;
+60	
+61	                var dbMeasurements = measurements.Select(measurement =&gt; new Measurement
+62	                {
+63	                    BSSID = measurement.BSSID,
+64	                    SSID = measurement.SSID,
+65	                    DeviceId = measurement.DeviceId,
+66	                    Encryption = measurement.Encryption,
+</Source>
+      </BreakPoint>
+    </BreakPoints>
   </Program>
 </VisualMicro>
