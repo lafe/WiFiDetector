@@ -1,0 +1,46 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25123.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{7276E99B-A33E-4A0E-8F33-661CD3DEB0DD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{5381D544-13DC-4E1F-995B-AEE995C585EC}"
+	ProjectSection(SolutionItems) = preProject
+		global.json = global.json
+	EndProjectSection
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "WiFiDetector", "src\WiFiDetector\WiFiDetector.xproj", "{1546E82B-9D45-44B8-A301-FA05BC04A1B0}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "WiFiDetector", "Arduino\WiFiDetector\WiFiDetector.vcxproj", "{C5F80730-F44F-4478-BDAE-6634EFC2CA88}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1546E82B-9D45-44B8-A301-FA05BC04A1B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1546E82B-9D45-44B8-A301-FA05BC04A1B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1546E82B-9D45-44B8-A301-FA05BC04A1B0}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{1546E82B-9D45-44B8-A301-FA05BC04A1B0}.Debug|x86.Build.0 = Debug|Any CPU
+		{1546E82B-9D45-44B8-A301-FA05BC04A1B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1546E82B-9D45-44B8-A301-FA05BC04A1B0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1546E82B-9D45-44B8-A301-FA05BC04A1B0}.Release|x86.ActiveCfg = Release|Any CPU
+		{1546E82B-9D45-44B8-A301-FA05BC04A1B0}.Release|x86.Build.0 = Release|Any CPU
+		{C5F80730-F44F-4478-BDAE-6634EFC2CA88}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{C5F80730-F44F-4478-BDAE-6634EFC2CA88}.Debug|x86.ActiveCfg = Debug|Win32
+		{C5F80730-F44F-4478-BDAE-6634EFC2CA88}.Debug|x86.Build.0 = Debug|Win32
+		{C5F80730-F44F-4478-BDAE-6634EFC2CA88}.Release|Any CPU.ActiveCfg = Release|Win32
+		{C5F80730-F44F-4478-BDAE-6634EFC2CA88}.Release|x86.ActiveCfg = Release|Win32
+		{C5F80730-F44F-4478-BDAE-6634EFC2CA88}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{1546E82B-9D45-44B8-A301-FA05BC04A1B0} = {7276E99B-A33E-4A0E-8F33-661CD3DEB0DD}
+	EndGlobalSection
+EndGlobal
